@@ -1,0 +1,52 @@
+header {
+  background-color: #fef6f9; /* soft blush pink */
+  padding: 12px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container img {
+  height: 150px;
+  width: auto;
+  object-fit: contain;
+  margin-right: 12px;
+}
+
+.brand-name {
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+nnav {
+  display: flex;
+  gap: 32px; /* adds equal spacing between links */
+}
+
+nav a {
+  text-decoration: none;
+  color: #7c4d4d;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 6px 14px;
+  border-radius: 24px;
+  transition: background-color 0.3s, color 0.2s;
+}
+
+nav a:hover {
+  background-color: #fde3ea;
+  color: #d36f6f;
+}
+

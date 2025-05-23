@@ -1,0 +1,74 @@
+.menu-container {
+  display: flex;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #fdf7fa;
+  padding: 40px 20px;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  background-color: #fddde6;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sidebar button:hover {
+  background-color: #fcb6cd;
+}
+
+.menu-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.menu-content h2 {
+  font-size: 2.5rem;
+  color: #a0522d;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.category-block {
+  margin-bottom: 60px;
+}
+
+.category-block h3 {
+  font-size: 1.8rem;
+  color: #7c4d4d;
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fef6f9;
+  padding: 14px 20px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  font-size: 1rem;
+  color: #4b2c2c;
+}
+
+.menu-heading {
+  font-size: 1.8rem;
+  color: #a0522d;
+  margin-bottom: 30px;
+  text-align: center;
+}
