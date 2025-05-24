@@ -1,0 +1,12 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* prevent horizontal scroll caused by overflow */
+  font-family: 'Segoe UI', sans-serif;
+}

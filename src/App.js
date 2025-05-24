@@ -3,6 +3,8 @@ import Hero from './Hero';
 import Menu from './Menu';
 import ContactModal from './ContactModal';
 import './Footer.css';
+import './global.css';
+
 
 
 function App() {

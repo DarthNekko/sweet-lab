@@ -1,19 +1,18 @@
 section#home {
   text-align: center;
   padding: 60px 40px;
-  background-color: #fdf7fa; /* extra soft blush */
+  background-color: #fdf7fa;
   font-family: 'Segoe UI', sans-serif;
 }
 
 section#home h2 {
   font-family: 'Lobster', cursive;
-  font-size: 8rem; /* keep the bold size */
-  line-height: 1;   /* tighten vertical space */
-  margin-bottom: 0.5rem; /* or even 0 if needed */
+  font-size: 8rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
   color: #aedff7;
   font-weight: 400;
 }
-
 
 section#home p {
   font-family: 'Lobster', cursive;
@@ -43,4 +42,26 @@ section#home button {
 section#home button:hover {
   background-color: #fcb6cd;
   transform: translateY(-2px);
+}
+
+
+/* 🔽 Mobile responsiveness */
+@media (max-width: 768px) {
+  section#home {
+    padding: 40px 20px;
+  }
+
+  section#home h2 {
+    font-size: 4rem;
+  }
+
+  section#home p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  section#home button {
+    font-size: 0.95rem;
+    padding: 12px 20px;
+  }
 }

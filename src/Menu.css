@@ -2,31 +2,74 @@
   display: flex;
   align-items: flex-start;
   gap: 40px;
-  padding: 40px 20px;
+  padding: 40px 0;
+  position: relative;
 }
 
-.platform-icon {
-  height: 18px;
-  width: auto;
-  margin-left: 6px;
-  vertical-align: middle;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.platform-icon.clickable:hover {
-  transform: scale(1.15);
-  opacity: 0.9;
+/* Base burger style shared across states */
+.burger-menu {
+  width: 60px;
+  height: 60px;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fdf7fa;
+  border-radius: 0 8px 8px 0;
+  z-index: 1000;
   cursor: pointer;
+  padding: 0;
+  margin: 0;
+  transition: top 0.3s ease, left 0.3s ease;
+}
+
+/* When sidebar is closed */
+.burger-menu.outside {
+  position: sticky;
+  top: 80px;
+  left: 0;
+}
+
+/* When sidebar is open (inside it) */
+.burger-menu.inside {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  background-color: transparent;
+  font-size: 2rem;
+}
+
+.sidebar-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 100%;
+  background-color: #fdf7fa;
+  z-index: 1;
 }
 
 .sidebar {
-  position: sticky;
-  top: 150px;
-  align-self: flex-start;
-  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #fdf7fa;
   padding: 20px;
-  border-radius: 8px;
-  z-index: 10;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  z-index: 999;
+  width: max-content;
+  min-width: 180px;
+  max-width: 80vw;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.sidebar.visible {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 .sidebar button {
@@ -46,9 +89,16 @@
   background-color: #fcb6cd;
 }
 
+.menu-heading {
+  font-size: 1.8rem;
+  color: #a0522d;
+  margin: 20px 0;
+  text-align: center;
+}
+
 .menu-content {
   flex: 1;
-  padding: 40px;
+  padding: 40px 40px 40px 80px;
 }
 
 .menu-content h2 {
@@ -75,14 +125,55 @@
   padding: 14px 20px;
   border-radius: 12px;
   margin-bottom: 10px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   font-size: 1rem;
   color: #4b2c2c;
 }
 
-.menu-heading {
-  font-size: 1.8rem;
-  color: #a0522d;
-  margin-bottom: 30px;
-  text-align: center;
+/* 📦 Delivery platform icons */
+.platform-icon {
+  height: 20px;
+  width: auto;
+  margin-left: 6px;
+  vertical-align: middle;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.platform-icon.clickable:hover {
+  transform: scale(1.15);
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+/* 🔽 Mobile tweaks */
+@media (max-width: 768px) {
+  .menu-container {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .menu-content {
+    padding: 20px 40px 20px 80px;
+  }
+
+  .platform-icon {
+    height: 16px;
+    margin-left: 4px;
+  }
+
+  .menu-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .menu-item span:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .burger-menu.outside {
+    top: 150px;
+  }
 }
