@@ -6,7 +6,8 @@ function ContactModal() {
   return (
     <section id="contact" className="contact-modal">
       <h3>Contact Us</h3>
-      <p>Email: <a href="mailto:contact@sweetlab.com">contact@sweetlab.com</a></p>
+      <p>Email: <a href="mailto:sweetlab.geo@gmail.com">sweetlab.geo@gmail.com</a></p>
+      <p>Phone Number: <a href="tel:+995599997678">+995 599 99 76 78</a></p>
       <p>
         Address:{' '}
         <a
