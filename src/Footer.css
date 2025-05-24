@@ -1,9 +1,10 @@
 .site-footer {
-  background-color: #e0f3fc; /* soft blue */
+  background-color: #e0f3fc;
   color: #333;
   text-align: center;
   padding: 20px;
   font-size: 1rem;
   font-family: 'Segoe UI', sans-serif;
-  margin-top: 60px;
+  width: 100vw;
+  margin: 0;
 }

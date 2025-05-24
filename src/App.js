@@ -1,6 +1,7 @@
 import Header from './Header';
 import Hero from './Hero';
 import Menu from './Menu';
+import ContactModal from './ContactModal';
 import './Footer.css';
 
 
@@ -10,10 +11,10 @@ function App() {
       <Header />
       <Hero />
       <Menu />
+      <ContactModal />
       <footer className="site-footer">
-  <span>© 2024-2025 Sweet Lab. All rights reserved.</span>
+  <span>© 2025 Sweet Lab. All rights reserved.</span>
 </footer>
-
     </div>
   );
 }
