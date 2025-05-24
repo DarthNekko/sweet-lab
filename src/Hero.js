@@ -4,7 +4,7 @@ function Hero() {
   return (
     <section id="home">
       <h2>Sweet Lab</h2>
-      <p>Desserts that make you feel things.</p>
+      <p>Whipped with love, served with joy.</p>
       <div>
         <a href="https://glovoapp.com/ge/en/tbilisi/sweet-lab-tbi/" target="_blank" rel="noopener noreferrer">
           <button>Order on Glovo</button>

@@ -1,22 +1,25 @@
 section#home {
   text-align: center;
-  padding: 100px 20px;
+  padding: 60px 40px;
   background-color: #fdf7fa; /* extra soft blush */
   font-family: 'Segoe UI', sans-serif;
 }
 
 section#home h2 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  color: #aedff7; /* soft baby blue */
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-family: 'Lobster', cursive;
+  font-size: 8rem; /* keep the bold size */
+  line-height: 1;   /* tighten vertical space */
+  margin-bottom: 0.5rem; /* or even 0 if needed */
+  color: #aedff7;
+  font-weight: 400;
 }
 
+
 section#home p {
-  font-size: 1.25rem;
+  font-family: 'Lobster', cursive;
+  font-size: 2rem;
   margin-bottom: 2.5rem;
-  color: #6e5f5f; /* soft cocoa gray */
+  color: #6e3a3a;
 }
 
 section#home a {

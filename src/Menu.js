@@ -36,7 +36,7 @@ function Menu() {
   return (
     <section id="menu" className="menu-container">
       <aside className="sidebar">
-        <h2 className="menu-heading">Our Menu</h2>
+        <h2 className="menu-heading">Menu</h2>
         <button onClick={() => setActiveCategory('All')}>All Products</button>
         {categoryOrder.map(category => (
           <button key={category} onClick={() => setActiveCategory(category)}>
