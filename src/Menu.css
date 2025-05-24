@@ -5,6 +5,21 @@
   min-height: 100vh;
 }
 
+.platform-icon {
+  height: 18px;
+  width: auto;
+  margin-left: 6px;
+  vertical-align: middle;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.platform-icon.clickable:hover {
+  transform: scale(1.15);
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+
 .sidebar {
   width: 220px;
   background-color: #fdf7fa;
@@ -72,3 +87,4 @@
   margin-bottom: 30px;
   text-align: center;
 }
+
