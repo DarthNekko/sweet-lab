@@ -22,6 +22,9 @@ function AdminPanel() {
   const [form, setForm] = useState({ name: '', price: '', category: 'Bubble Waffles', image: null });
   const [editId, setEditId] = useState(null);
   const [previewUrl, setPreviewUrl] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const categoryOptions = ['Bubble Waffles', 'Crepes', 'Pancakes'];
   const navigate = useNavigate();
@@ -30,13 +33,12 @@ function AdminPanel() {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
-        navigate('/login'); // redirect if not logged in
+        navigate('/login');
       } else {
         fetchItems();
       }
     });
-
-    return () => unsubscribe(); // cleanup on unmount
+    return () => unsubscribe();
   }, [navigate]);
 
   const fetchItems = async () => {
@@ -64,28 +66,50 @@ function AdminPanel() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage('');
+    setSuccessMessage('');
     const { name, price, category, image } = form;
-    if (!name || !price || !category) return alert('All fields are required');
 
-    let imageUrl = '';
-    if (image && typeof image !== 'string') {
-      imageUrl = await uploadImage(image);
-    } else if (typeof image === 'string') {
-      imageUrl = image;
+    if (!name || !price || !category) {
+      setErrorMessage('❌ All fields are required');
+      setTimeout(() => setErrorMessage(''), 3000);
+      return;
     }
 
-    const itemData = { name, price: parseFloat(price), category, image: imageUrl };
+    try {
+      setUploading(true);
 
-    if (editId) {
-      await updateDoc(doc(db, 'menu', editId), itemData);
-    } else {
-      await addDoc(collection(db, 'menu'), itemData);
+      let imageUrl = '';
+      if (image && typeof image !== 'string') {
+        imageUrl = await uploadImage(image);
+      } else if (typeof image === 'string') {
+        imageUrl = image;
+      }
+
+      const itemData = { name, price: parseFloat(price), category, image: imageUrl };
+
+      if (editId) {
+        await updateDoc(doc(db, 'menu', editId), itemData);
+        setSuccessMessage('✅ Item updated successfully');
+      } else {
+        await addDoc(collection(db, 'menu'), itemData);
+        setSuccessMessage('✅ Item added successfully');
+      }
+
+      setForm({ name: '', price: '', category: 'Bubble Waffles', image: null });
+      setPreviewUrl('');
+      setEditId(null);
+      fetchItems();
+    } catch (err) {
+      console.error('Error saving item:', err);
+      setErrorMessage('❌ Failed to save item');
+    } finally {
+      setUploading(false);
+      setTimeout(() => {
+        setSuccessMessage('');
+        setErrorMessage('');
+      }, 3000);
     }
-
-    setForm({ name: '', price: '', category: 'Bubble Waffles', image: null });
-    setPreviewUrl('');
-    setEditId(null);
-    fetchItems();
   };
 
   const handleDelete = async (id) => {
@@ -108,6 +132,10 @@ function AdminPanel() {
     <div className="admin-panel">
       <h2>Admin Panel – Sweet Lab</h2>
 
+      {uploading && <p>Uploading image...</p>}
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+
       <form onSubmit={handleSubmit}>
         <input name="name" value={form.name} onChange={handleChange} placeholder="Item name" />
         <input name="price" type="number" value={form.price} onChange={handleChange} placeholder="Price (₾)" />
@@ -118,7 +146,9 @@ function AdminPanel() {
         </select>
         <input name="image" type="file" accept="image/*" onChange={handleChange} />
         {previewUrl && <img src={previewUrl} alt="Preview" height="80" />}
-        <button type="submit">{editId ? 'Update Item' : 'Add Item'}</button>
+        <button type="submit" disabled={uploading}>
+          {uploading ? 'Uploading...' : editId ? 'Update Item' : 'Add Item'}
+        </button>
       </form>
 
       <ul>
