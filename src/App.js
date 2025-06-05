@@ -4,6 +4,7 @@ import Hero from './Hero';
 import Menu from './Menu';
 import ContactModal from './ContactModal';
 import AdminPanel from './AdminPanel';
+import Login from './Login'; // ✅ Import your login page
 import './Footer.css';
 import './global.css';
 
@@ -25,7 +26,8 @@ function App() {
             </>
           }
         />
-        <Route path="/admin" element={<AdminPanel />} /> {/* admin route */}
+        <Route path="/login" element={<Login />} /> {/* ✅ Add this */}
+        <Route path="/admin" element={<AdminPanel />} />
       </Routes>
     </Router>
   );

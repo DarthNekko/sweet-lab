@@ -13,6 +13,8 @@ import {
   getDownloadURL
 } from 'firebase/storage';
 import { db, storage } from './firebase';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 function AdminPanel() {
   const [menuItems, setMenuItems] = useState([]);
@@ -21,10 +23,20 @@ function AdminPanel() {
   const [previewUrl, setPreviewUrl] = useState('');
 
   const categoryOptions = ['Bubble Waffles', 'Crepes', 'Pancakes'];
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchItems();
-  }, []);
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate('/login'); // redirect if not logged in
+      } else {
+        fetchItems();
+      }
+    });
+
+    return () => unsubscribe(); // cleanup on unmount
+  }, [navigate]);
 
   const fetchItems = async () => {
     const snapshot = await getDocs(collection(db, 'menu'));
@@ -123,5 +135,3 @@ function AdminPanel() {
 }
 
 export default AdminPanel;
-// This code defines an AdminPanel component that allows administrators to manage menu items in a Firebase Firestore database.
-// It includes functionality to add, edit, and delete items, as well as upload images to Firebase Storage.
