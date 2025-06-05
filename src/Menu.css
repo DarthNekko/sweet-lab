@@ -4,99 +4,9 @@
   gap: 40px;
   padding: 0px 0;
   position: sticky;
-  top: 10px; /* This is the scroll threshold */
-  z-index: 900; /* Ensure it appears above background */
-  background-color: #fff; /* Optional: to prevent content underneath from showing */
-}
-
-/* Base burger style shared across states */
-.burger-menu {
-  width: 60px;
-  height: 60px;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fdf7fa;
-  border-radius: 0 8px 8px 0;
-  z-index: 1000;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-  /* transition: left 0.3s ease; */
-}
-
-/* When sidebar is closed */
-.burger-menu.outside {
-  position: sticky;
   top: 10px;
-  left: 0;
-}
-
-/* When sidebar is open (inside it) */
-.burger-menu.inside {
-  position: sticky;
-  top: 10px;
-  left: 0;
-  background-color: transparent;
-  font-size: 2rem;
-}
-
-.sidebar-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 60px;
-  height: 100%;
-  background-color: #fdf7fa;
-  z-index: 1;
-}
-
-.sidebar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background-color: #fdf7fa;
-  padding: 12px 20px 20px 20px;
-  border-radius: 0 8px 8px 0;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-  z-index: 999;
-  width: max-content;
-  min-width: 180px;
-  max-width: 80vw;
-  transform: translateX(-100%);
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.sidebar.visible {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.sidebar button {
-  display: block;
-  width: 100%;
-  margin-bottom: 16px;
-  padding: 10px 16px;
-  font-size: 1rem;
-  background-color: #fddde6;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.sidebar button:hover {
-  background-color: #fcb6cd;
-}
-
-.menu-heading {
-  font-size: 1.8rem;
-  color: #a0522d;
-  margin-bottom: 20px;
-  text-align: center;
+  z-index: 900;
+  background-color: #fff;
 }
 
 .menu-content {
@@ -121,23 +31,51 @@
   margin-bottom: 20px;
 }
 
-.menu-item {
+/* 🔄 Redesigned Item Block (used for all categories now) */
+.pink-item {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
   background-color: #fef6f9;
-  padding: 14px 20px;
+  padding: 16px;
   border-radius: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   font-size: 1rem;
   color: #4b2c2c;
 }
 
+.menu-item-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.menu-item-name {
+  flex-grow: 1;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.menu-item-price {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.menu-item-icons {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 /* 📦 Delivery platform icons */
 .platform-icon {
-  height: 20px;
+  height: 32px;
   width: auto;
-  margin-left: 6px;
+  margin-left: 8px;
   vertical-align: middle;
   transition: transform 0.2s, opacity 0.2s;
 }
@@ -156,27 +94,38 @@
   }
 
   .menu-content {
-    padding: 20px 40px 20px 80px;
-  }
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
 
   .platform-icon {
-    height: 16px;
-    margin-left: 4px;
+    height: 28px;
+    margin-left: 6px;
   }
 
-  .menu-item {
+  .pink-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
   }
 
-  .menu-item span:last-child {
-    display: flex;
+  .menu-item-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .menu-item-name,
+  .menu-item-price,
+  .menu-item-icons {
+    margin: 4px 0;
+    width: 100%;
+  }
+
+  .menu-item-icons {
+    justify-content: flex-start;
     flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .burger-menu.outside {
-    top: 150px;
   }
 }
