@@ -4,7 +4,7 @@ import Hero from './Hero';
 import Menu from './Menu';
 import ContactModal from './ContactModal';
 import AdminPanel from './AdminPanel';
-import Login from './Login'; // ✅ Import your login page
+import Login from './Login'; 
 import './Footer.css';
 import './global.css';
 

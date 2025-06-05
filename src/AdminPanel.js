@@ -51,8 +51,10 @@ function AdminPanel() {
     const { name, value, files } = e.target;
     if (name === 'image') {
       const file = files[0];
-      setForm({ ...form, image: file });
-      setPreviewUrl(URL.createObjectURL(file));
+      if (file) {
+        setForm({ ...form, image: file });
+        setPreviewUrl(URL.createObjectURL(file));
+      }
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -79,11 +81,10 @@ function AdminPanel() {
     try {
       setUploading(true);
 
-      let imageUrl = '';
+      let imageUrl = image;
+
       if (image && typeof image !== 'string') {
         imageUrl = await uploadImage(image);
-      } else if (typeof image === 'string') {
-        imageUrl = image;
       }
 
       const itemData = { name, price: parseFloat(price), category, image: imageUrl };
