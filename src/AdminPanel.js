@@ -1,3 +1,4 @@
+import './AdminPanel.css';
 import { useEffect, useState } from 'react';
 import {
   collection,
@@ -104,7 +105,7 @@ function AdminPanel() {
   };
 
   return (
-    <div>
+    <div className="admin-panel">
       <h2>Admin Panel – Sweet Lab</h2>
 
       <form onSubmit={handleSubmit}>
@@ -123,7 +124,15 @@ function AdminPanel() {
       <ul>
         {menuItems.map(item => (
           <li key={item.id}>
-            <img src={item.image} alt={item.name} height="50" style={{ marginRight: 10 }} />
+            {item.image && (
+              <img
+                src={item.image}
+                alt={item.name}
+                height="50"
+                style={{ marginRight: 10 }}
+                onError={(e) => (e.target.style.display = 'none')}
+              />
+            )}
             <strong>{item.name}</strong> – {item.price}₾ ({item.category})
             <button onClick={() => handleEdit(item)}>✏️ Edit</button>
             <button onClick={() => handleDelete(item.id)}>🗑️ Delete</button>
