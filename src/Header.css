@@ -14,11 +14,6 @@ header {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* NOTE: Add top padding to the first section on your page to prevent it being hidden behind the fixed header.
-   For example, in Hero.css or the section immediately following the header:
-   padding-top: 140px; (adjust based on actual header height on mobile)
-*/
-
 .logo-container {
   display: flex;
   align-items: center;
@@ -58,8 +53,7 @@ nav a:hover {
   color: #d36f6f;
 }
 
-/* 🔽 Mobile Styles */
-/* 🔽 Mobile Styles */
+/* Mobile Styles */
 @media (max-width: 768px) {
   header {
     flex-direction: row;

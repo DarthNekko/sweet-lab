@@ -3,7 +3,10 @@
   align-items: flex-start;
   gap: 40px;
   padding: 0px 0;
-  position: relative;
+  position: sticky;
+  top: 10px; /* This is the scroll threshold */
+  z-index: 900; /* Ensure it appears above background */
+  background-color: #fff; /* Optional: to prevent content underneath from showing */
 }
 
 /* Base burger style shared across states */
@@ -20,20 +23,20 @@
   cursor: pointer;
   padding: 0;
   margin: 0;
-  transition: top 0.3s ease, left 0.3s ease;
+  /* transition: left 0.3s ease; */
 }
 
 /* When sidebar is closed */
 .burger-menu.outside {
   position: sticky;
-  top: 80px;
+  top: 10px;
   left: 0;
 }
 
 /* When sidebar is open (inside it) */
 .burger-menu.inside {
-  position: absolute;
-  top: 20px;
+  position: sticky;
+  top: 10px;
   left: 0;
   background-color: transparent;
   font-size: 2rem;
@@ -55,7 +58,7 @@
   left: 0;
   bottom: 0;
   background-color: #fdf7fa;
-  padding: 20px;
+  padding: 12px 20px 20px 20px;
   border-radius: 0 8px 8px 0;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
   z-index: 999;
@@ -92,7 +95,7 @@
 .menu-heading {
   font-size: 1.8rem;
   color: #a0522d;
-  margin: 20px 0;
+  margin-bottom: 20px;
   text-align: center;
 }
 

@@ -12,6 +12,7 @@ function Menu() {
   const [menuItems, setMenuItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState('All');
   const [sidebarVisible, setSidebarVisible] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
   const sidebarRef = useRef(null);
 
   const categoryOrder = ['Bubble Waffles', 'Crepes', 'Pancakes'];
@@ -26,7 +27,6 @@ function Menu() {
     fetchData();
   }, []);
 
-  // Close sidebar when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -40,6 +40,19 @@ function Menu() {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 180) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleCategoryClick = (category) => {
@@ -57,11 +70,9 @@ function Menu() {
   }, {});
 
   return (
-    <section id="menu" className="menu-container">
-      {/* Sidebar pink line - always visible */}
+    <section id="menu" className={`menu-container`}>
       <div className="sidebar-background" />
 
-      {/* Single burger icon that changes style */}
       <div
         className={`burger-menu ${sidebarVisible ? 'inside' : 'outside'}`}
         onClick={() => setSidebarVisible(!sidebarVisible)}
