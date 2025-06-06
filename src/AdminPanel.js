@@ -73,7 +73,7 @@ function AdminPanel() {
   const uploadImage = async (file) => {
     const imageRef = ref(storage, `menu-images/${Date.now()}-${file.name}`);
     await uploadBytes(imageRef, file);
-    return await getDownloadURL(imageRef);
+    return await getDownloadURL(imageRef); // ✅ public URL
   };
 
   const handleSubmit = async (e) => {
@@ -90,9 +90,14 @@ function AdminPanel() {
 
     try {
       setUploading(true);
-      let imageUrl = image;
-      if (image && typeof image !== 'string') {
-        imageUrl = await uploadImage(image);
+      let imageUrl = null;
+
+      if (image) {
+        if (typeof image === 'string') {
+          imageUrl = image; // already a download URL
+        } else {
+          imageUrl = await uploadImage(image); // upload and get URL
+        }
       }
 
       const itemData = { name, price: parseFloat(price), category, imageUrl };
