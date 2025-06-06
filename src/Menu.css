@@ -94,12 +94,11 @@
   }
 
   .menu-content {
-  flex: 1;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
+    flex: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
 
   .platform-icon {
     height: 28px;

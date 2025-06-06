@@ -6,7 +6,8 @@ import {
   addDoc,
   deleteDoc,
   doc,
-  updateDoc
+  updateDoc,
+  getDoc
 } from 'firebase/firestore';
 import {
   ref,
@@ -14,7 +15,7 @@ import {
   getDownloadURL
 } from 'firebase/storage';
 import { db, storage } from './firebase';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 function AdminPanel() {
@@ -25,19 +26,28 @@ function AdminPanel() {
   const [uploading, setUploading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   const categoryOptions = ['Bubble Waffles', 'Crepes', 'Pancakes'];
   const navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
         navigate('/login');
       } else {
-        fetchItems();
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists() && userDoc.data().role === 'admin') {
+          setIsAuthorized(true);
+          fetchItems();
+        } else {
+          setIsAuthorized(false);
+          navigate('/unauthorized');
+        }
       }
     });
+
     return () => unsubscribe();
   }, [navigate]);
 
@@ -80,14 +90,12 @@ function AdminPanel() {
 
     try {
       setUploading(true);
-
       let imageUrl = image;
-
       if (image && typeof image !== 'string') {
         imageUrl = await uploadImage(image);
       }
 
-      const itemData = { name, price: parseFloat(price), category, image: imageUrl };
+      const itemData = { name, price: parseFloat(price), category, imageUrl };
 
       if (editId) {
         await updateDoc(doc(db, 'menu', editId), itemData);
@@ -123,15 +131,31 @@ function AdminPanel() {
       name: item.name,
       price: item.price,
       category: item.category,
-      image: item.image || null,
+      image: item.imageUrl || null,
     });
-    setPreviewUrl(item.image || '');
+    setPreviewUrl(item.imageUrl || '');
     setEditId(item.id);
   };
+
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        navigate('/login');
+      })
+      .catch((error) => {
+        console.error('Logout failed:', error);
+      });
+  };
+
+  if (!isAuthorized) {
+    return null;
+  }
 
   return (
     <div className="admin-panel">
       <h2>Admin Panel – Sweet Lab</h2>
+      <button onClick={handleLogout} className="logout-button">🚪 Log out</button>
 
       {uploading && <p>Uploading image...</p>}
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
@@ -155,9 +179,9 @@ function AdminPanel() {
       <ul>
         {menuItems.map(item => (
           <li key={item.id}>
-            {item.image && (
+            {item.imageUrl && (
               <img
-                src={item.image}
+                src={item.imageUrl}
                 alt={item.name}
                 height="50"
                 style={{ marginRight: 10 }}

@@ -8,6 +8,18 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+.logout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ffdddd;
+  border: 1px solid #ff9999;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .admin-panel h2 {
   text-align: center;
   margin-bottom: 30px;

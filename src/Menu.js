@@ -5,9 +5,6 @@ import { app } from './firebase';
 import glovoIcon from './assets/glovo.png';
 import woltIcon from './assets/wolt.png';
 import boltIcon from './assets/bolt.png';
-import bubbleWaffleImg from './assets/bubble-waffle.png';
-import crepesImg from './assets/crepes.png';
-import pancakesImg from './assets/pancakes.png';
 
 const db = getFirestore(app);
 
@@ -31,9 +28,11 @@ function Menu() {
     return acc;
   }, {});
 
-  const renderItemBlock = (item, imgSrc) => (
+  const renderItemBlock = (item) => (
     <div className="pink-item" key={item.name}>
-      <img src={imgSrc} alt={item.name} className="menu-item-img" />
+      {item.imageUrl && (
+        <img src={item.imageUrl} alt={item.name} className="menu-item-img" />
+      )}
       <span className="menu-item-name">{item.name}</span>
       <span className="menu-item-price">{item.price} GEL</span>
       <span className="menu-item-icons">
@@ -59,29 +58,14 @@ function Menu() {
   return (
     <section id="menu" className="menu-container">
       <div className="menu-content">
-        {/* Bubble Waffles */}
-        {groupedItems['Bubble Waffles']?.length > 0 && (
-          <div className="category-block">
-            <h3>Bubble Waffles</h3>
-            {groupedItems['Bubble Waffles'].map(item => renderItemBlock(item, bubbleWaffleImg))}
-          </div>
-        )}
-
-        {/* Crepes */}
-        {groupedItems['Crepes']?.length > 0 && (
-          <div className="category-block">
-            <h3>Crepes</h3>
-            {groupedItems['Crepes'].map(item => renderItemBlock(item, crepesImg))}
-          </div>
-        )}
-
-        {/* Pancakes */}
-        {groupedItems['Pancakes']?.length > 0 && (
-          <div className="category-block">
-            <h3>Pancakes</h3>
-            {groupedItems['Pancakes'].map(item => renderItemBlock(item, pancakesImg))}
-          </div>
-        )}
+        {categoryOrder.map(category => (
+          groupedItems[category]?.length > 0 && (
+            <div className="category-block" key={category}>
+              <h3>{category}</h3>
+              {groupedItems[category].map(item => renderItemBlock(item))}
+            </div>
+          )
+        ))}
       </div>
     </section>
   );
