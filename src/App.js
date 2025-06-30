@@ -7,6 +7,7 @@ import AdminPanel from './AdminPanel';
 import Login from './Login'; 
 import './Footer.css';
 import './global.css';
+import './i18n';
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
             </>
           }
         />
-        <Route path="/login" element={<Login />} /> {/* ✅ Add this */}
+        <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<AdminPanel />} />
       </Routes>
     </Router>

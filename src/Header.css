@@ -1,17 +1,40 @@
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   z-index: 1000;
   background-color: #fef6f9;
-  padding: 12px 25px;
+  padding: 12px 25px 25px 25px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 16px;
   font-family: 'Segoe UI', sans-serif;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Top-right language toggle container */
+.header-top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 0;
+}
+
+/* Language toggle button */
+.language-toggle {
+  background: none;
+  border: 1.5px solid #fce4ec;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.language-toggle:hover {
+  background-color: #fff0f5;
+  border-color: #f8c5d6;
 }
 
 .logo-container {
@@ -56,11 +79,8 @@ nav a:hover {
 /* Mobile Styles */
 @media (max-width: 768px) {
   header {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 12px;
+    padding: 16px 12px;
+    gap: 12px;
   }
 
   .logo-container img {
@@ -75,15 +95,18 @@ nav a:hover {
 
   nav {
     flex-grow: 1;
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
-    gap: 6px;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
   nav a {
     font-size: 0.9rem;
     padding: 6px 10px;
   }
-}
 
+  .header-top {
+    justify-content: flex-end;
+    padding: 0;
+  }
+}
