@@ -1,6 +1,6 @@
 section#home {
   text-align: center;
-  padding: 220px 40px 60px; /* top padding ensures Hero sits below header */
+  padding: 100px 40px 60px; /* top padding ensures Hero sits below header */
   background-color: #fdf7fa;
   font-family: 'Segoe UI', sans-serif;
 }

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian&display=swap');
 
 * {
   box-sizing: border-box;
@@ -7,6 +8,11 @@
 
 html, body {
   width: 100%;
-  overflow-x: hidden; /* prevent horizontal scroll caused by overflow */
+  overflow-x: hidden;
   font-family: 'Segoe UI', sans-serif;
+}
+
+/* ✅ Use Noto Sans Georgian only for Georgian text */
+[lang="ka"] {
+  font-family: 'Noto Sans Georgian', sans-serif;
 }

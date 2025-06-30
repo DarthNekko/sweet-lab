@@ -2,6 +2,7 @@ import './Menu.css';
 import { useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { app } from './firebase';
+import { useTranslation } from 'react-i18next';
 import glovoIcon from './assets/glovo.png';
 import woltIcon from './assets/wolt.png';
 import boltIcon from './assets/bolt.png';
@@ -10,6 +11,8 @@ const db = getFirestore(app);
 
 function Menu() {
   const [menuItems, setMenuItems] = useState([]);
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
 
   const categoryOrder = ['Bubble Waffles', 'Crepes', 'Pancakes'];
 
@@ -29,11 +32,11 @@ function Menu() {
   }, {});
 
   const renderItemBlock = (item) => (
-    <div className="pink-item" key={item.name}>
+    <div className="pink-item" key={item.name?.[lang]}>
       {item.imageUrl && (
-        <img src={item.imageUrl} alt={item.name} className="menu-item-img" />
+        <img src={item.imageUrl} alt={item.name?.[lang]} className="menu-item-img" />
       )}
-      <span className="menu-item-name">{item.name}</span>
+      <span className="menu-item-name">{item.name?.[lang]}</span>
       <span className="menu-item-price">{item.price} GEL</span>
       <span className="menu-item-icons">
         {item.glovo && (
