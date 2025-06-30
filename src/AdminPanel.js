@@ -20,7 +20,12 @@ import { useNavigate } from 'react-router-dom';
 
 function AdminPanel() {
   const [menuItems, setMenuItems] = useState([]);
-  const [form, setForm] = useState({ name: '', price: '', category: 'Bubble Waffles', image: null });
+  const [form, setForm] = useState({
+    name: { en: '', ka: '' },
+    price: '',
+    category: 'Bubble Waffles',
+    image: null
+  });
   const [editId, setEditId] = useState(null);
   const [previewUrl, setPreviewUrl] = useState('');
   const [uploading, setUploading] = useState(false);
@@ -65,6 +70,9 @@ function AdminPanel() {
         setForm({ ...form, image: file });
         setPreviewUrl(URL.createObjectURL(file));
       }
+    } else if (name === 'name_en' || name === 'name_ka') {
+      const lang = name.split('_')[1];
+      setForm({ ...form, name: { ...form.name, [lang]: value } });
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -73,7 +81,7 @@ function AdminPanel() {
   const uploadImage = async (file) => {
     const imageRef = ref(storage, `menu-images/${Date.now()}-${file.name}`);
     await uploadBytes(imageRef, file);
-    return await getDownloadURL(imageRef); // ✅ public URL
+    return await getDownloadURL(imageRef);
   };
 
   const handleSubmit = async (e) => {
@@ -82,7 +90,7 @@ function AdminPanel() {
     setSuccessMessage('');
     const { name, price, category, image } = form;
 
-    if (!name || !price || !category) {
+    if (!name.en || !name.ka || !price || !category) {
       setErrorMessage('❌ All fields are required');
       setTimeout(() => setErrorMessage(''), 3000);
       return;
@@ -94,13 +102,18 @@ function AdminPanel() {
 
       if (image) {
         if (typeof image === 'string') {
-          imageUrl = image; // already a download URL
+          imageUrl = image;
         } else {
-          imageUrl = await uploadImage(image); // upload and get URL
+          imageUrl = await uploadImage(image);
         }
       }
 
-      const itemData = { name, price: parseFloat(price), category, imageUrl };
+      const itemData = {
+        name,
+        price: parseFloat(price),
+        category,
+        imageUrl
+      };
 
       if (editId) {
         await updateDoc(doc(db, 'menu', editId), itemData);
@@ -110,7 +123,12 @@ function AdminPanel() {
         setSuccessMessage('✅ Item added successfully');
       }
 
-      setForm({ name: '', price: '', category: 'Bubble Waffles', image: null });
+      setForm({
+        name: { en: '', ka: '' },
+        price: '',
+        category: 'Bubble Waffles',
+        image: null
+      });
       setPreviewUrl('');
       setEditId(null);
       fetchItems();
@@ -133,7 +151,7 @@ function AdminPanel() {
 
   const handleEdit = (item) => {
     setForm({
-      name: item.name,
+      name: item.name || { en: '', ka: '' },
       price: item.price,
       category: item.category,
       image: item.imageUrl || null,
@@ -167,7 +185,8 @@ function AdminPanel() {
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
       <form onSubmit={handleSubmit}>
-        <input name="name" value={form.name} onChange={handleChange} placeholder="Item name" />
+        <input name="name_en" value={form.name.en} onChange={handleChange} placeholder="Item name (EN)" />
+        <input name="name_ka" value={form.name.ka} onChange={handleChange} placeholder="Item name (KA)" />
         <input name="price" type="number" value={form.price} onChange={handleChange} placeholder="Price (₾)" />
         <select name="category" value={form.category} onChange={handleChange}>
           {categoryOptions.map(cat => (
@@ -187,13 +206,13 @@ function AdminPanel() {
             {item.imageUrl && (
               <img
                 src={item.imageUrl}
-                alt={item.name}
+                alt={item.name?.en}
                 height="50"
                 style={{ marginRight: 10 }}
                 onError={(e) => (e.target.style.display = 'none')}
               />
             )}
-            <strong>{item.name}</strong> – {item.price}₾ ({item.category})
+            <strong>{item.name?.en || 'Unnamed'}</strong> – {item.price}₾ ({item.category})
             <button onClick={() => handleEdit(item)}>✏️ Edit</button>
             <button onClick={() => handleDelete(item.id)}>🗑️ Delete</button>
           </li>
